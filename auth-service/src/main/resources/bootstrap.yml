@@ -1,0 +1,27 @@
+server:
+  servlet:
+    context-path: /uaa
+  port: 8081
+#management:
+#  security:
+#    enabled: false
+spring:
+  application:
+    name: authservice
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+#      username: tenant1
+#      password: Pass@1234
+      database: oauth-db
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: false
+      discovery:
+        instanceId: ${spring.application.name}:${random.value}
+        healthCheckPath: ${server.servlet.context-path}/actuator/health
+        healthCheckInterval: 15s

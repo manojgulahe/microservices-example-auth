@@ -1,0 +1,24 @@
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://localhost:8080/uaa/user/current
+#      token-info-uri: http://localhost:8080/uaa/oauth/check_token
+#      resource
+#        filter-order : 3
+#security:
+#  oauth2:
+#    client:
+#      clientId: account-service
+#      clientSecret: 1234
+#      accessTokenUri: http://localhost:8081/uaa/oauth/token
+#      grant-type: client_credentials
+#      scope: server
+#
+#server:
+#  servlet:
+#    context-path: /accounts
+#  port: 8082
+#
+#feign:
+#  hystrix:
+#    enabled: true

@@ -1,0 +1,46 @@
+#server:
+#  servlet:
+#    context-path: /uaa
+#  port: 8081
+#management:
+#  security:
+#    enabled: false
+spring:
+  application:
+    name: accountservice
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      config:
+        enabled: false
+      discovery:
+        instanceId: ${spring.application.name}:${random.value}
+        healthCheckPath: ${server.servlet.context-path}/actuator/health
+        healthCheckInterval: 15s
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8080/uaa/user/current
+      token-info-uri: http://localhost:8080/uaa/oauth/check_token
+    client:
+      clientId: account-service
+      clientSecret: 1234
+      accessTokenUri: http://localhost:8081/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server
+#      resource
+#        filter-order : 3
+#
+server:
+  servlet:
+    context-path: /accounts
+  port: 8082
+
+feign:
+  hystrix:
+    enabled: true
+hystrix:
+  shareSecurityContext: true

@@ -1,0 +1,33 @@
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      #config:
+      #  enabled: false
+      discovery:
+        instanceId: ${spring.application.name}:${random.value}
+#       enabled : false
+  application:
+    name: zuul
+zuul:
+  ignoredServices: '*'
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+
+  routes:
+    authservice:
+      path: /uaa/** #path that will be intercepted
+      url: authservice #which url the request will e mapped to
+      stripPrefix: false #if zuul should replace the "/uaa/" segment
+      sensitiveHeaders:
+
+    accountservice:
+      path: /accounts/**
+      serviceId: accountservice
+      stripPrefix: false
+      sensitiveHeaders:
+
+server:
+  port: 8080

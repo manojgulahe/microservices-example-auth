@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "server.enabled",
+  "type": "java.lang.String",
+  "description": "A description for 'server.enabled'"
+}]}
