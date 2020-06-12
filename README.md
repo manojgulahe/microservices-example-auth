@@ -11,6 +11,8 @@ Also need to install mongodb as database.
 Create  oauth-db in mongodb
 Create collection as authClientDetails
 Insert following document
+
+```
 {
     "clientId": "browser",
     "clientSecret": "$2a$10$fWNTd3H.u7G/aNROVQSifebOkZ2xzU5nUPOCI2Ld42M8E25/ljJqK",
@@ -24,16 +26,17 @@ Insert following document
     "scopes": "server",
     "grantTypes": "refresh_token,client_credentials,password"
 }
-
+```
 Create collection as user
 Insert following document
+```
 {
     "activated": true,
     "authorities": ["ROLE_USER"],
     "password": "$2a$10$fWNTd3H.u7G/aNROVQSifebOkZ2xzU5nUPOCI2Ld42M8E25/ljJqK",
     "username": "randomuser"
 }
-
+```
 ## Description of component
 ZuulServer -- gateway for all services. You have access services from gateway only. In real environment you will face CROS issue because all services are running on different ports. Gateway resolve that issue
 AuthService -- It is a OAuth server which will authenticate and authorize user using spring security.
@@ -55,6 +58,7 @@ This is authentication and authorization server. It will create a token and stor
 This is resource service. As per OAuth flow if you want to access resource servers you need OAuth token. Authorization flow is used in this example.
 
 ### API Flow
+```
 Post API 
   http://localhost:8081/uaa/oauth/token
   Form submission
@@ -71,8 +75,8 @@ Respose will be like
   "expires_in": 42910,
   "scope": "server"
 }
-
-
+```
+```
 Post API To create User
   http://localhost:8080/accounts/
   Header 
@@ -87,12 +91,14 @@ Respose will be like
   "id": "5eb65fd5ecef38584d967aaf",
   "username": "NewUser"
   }
-This api internally calls auht service for user creation. As we have used oauth sso resouce server with FeignClient will relay token to calling service. Used EnableOAuth2Sso annotaion in resource server.
+```
+This api internally calls auht service for user creation. As we have used oauth sso resouce server with FeignClient will
+relay token to calling service. Used EnableOAuth2Sso annotaion in resource server.
 
 It also have one more API
+```
 Get Current user
   http://localhost:8080/uaa/user/current
   Header 
     Authorization: Bearer fb5e13a7-e41e-4dc4-8ec9-6ed6db69c30c
-  
-  
+```
